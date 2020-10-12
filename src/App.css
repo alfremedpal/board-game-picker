@@ -1,38 +1,100 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  min-height: calc(100vh + 1px);
+  background-color: #fff;
+  width: 100%;
+  color: #333;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+}
+
+.main {
+  /* background-color: red; */
+  width: 100%;
+  padding: 5%;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.title {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+  color: #2D3748;
+  font-family: system-ui, sans-serif;
+}
+
+.subtitle {
+  font-size: 1.25em;
+  text-align: left;
+  color: #718096;
+  font-family: system-ui, sans-serif;
+}
+
+.form {
+  border-color: #ccc;
+}
+
+.toggle-area {
+  border: 1px solid #CBD5E0;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  margin: 10px 0 10px 0;
+  transition: all ease 0.3s;
+}
+
+.toggle-area:hover {
+  border: 1px solid #A0AEC0;
+  background-color: #eee;
+}
+
+.stack {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.stack small {
+  color: #718096;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.stack .checkbox-group {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin: 0 10px 0 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.stack .checkbox-group span {
+  margin-left: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.chosen-game {
+  display: flex;
+  justify-content: center;
+}
+
+footer {
+  position: relative;
+  bottom: -100px;
+  left: 0;
+}
+
+@media(min-width: 1200px) {
+  .main {
+    width: 50%;
+    padding: 0;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media(max-width: 1200px) {
+  .stack .checkbox-group span {
+    display: none;
   }
 }

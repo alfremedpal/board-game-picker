@@ -1,0 +1,36 @@
+.square, .circle, .triangle {
+    position: absolute;
+}
+
+.square {
+    width: 150px;
+    height: 150px;
+    /* background: red; */
+    /* top: 100px;
+    left: 170px; */
+}
+
+.circle {
+    width: 150px;
+    height: 150px;
+    /* background: red; */
+    border-radius: 50%;
+    /* top: 350px;
+    left: 200px; */
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    /* border-bottom: 150px solid red; */
+    /* top: 250px;
+    right: 170px; */
+}
+
+@media(max-width: 1200px) {
+    .square, .circle, .triangle {
+        display: none;
+    }
+}
