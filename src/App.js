@@ -352,7 +352,7 @@ function App() {
 				<footer>
 					<Text color="gray.500" fontSize="sm">
 						<Link href="https://www.buymeacoffee.com/amedpal" isExternal>Buy me a coffee</Link> | &nbsp;
-						<Link>Source code</Link> | &nbsp;
+						<Link href="https://github.com/alfremedpal/board-game-picker" isExternal>Source code</Link> | &nbsp;
 						<Link onClick={() => setModalOpen(true)}>About and Contact</Link>
 					</Text>
 					<Text color="gray.500" fontSize="sm">

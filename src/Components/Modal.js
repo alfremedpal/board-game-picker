@@ -23,7 +23,7 @@ export default function Modal(props) {
                         <Text>
                             <b>Author</b>: Alfredo Medina <br/>
                             <b>Contact</b>: info@amedpal.com <br/>
-                            <Link color="teal.500"><b>GitHub repo</b></Link> <br/>
+                            <Link href="https://github.com/alfremedpal/board-game-picker" isExternal color="teal.500"><b>GitHub repo</b></Link> <br/>
                             <Link href="https://www.buymeacoffee.com/amedpal" isExternal color="teal.500"><b>Buy me a coffee</b></Link>
                         </Text>
                     </ModalBody>
