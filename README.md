@@ -1,5 +1,5 @@
 # Board Game Picker
-Enter your Board Game Geek username and get a random game form your collection (marked as owned) to play!
+Enter your Board Game Geek username and get a random game form your collection (marked as owned) to play! Give it a try over at [bgpicker.com](https://www.bgpicker.com/)
 
 Built with React JS and [chakra UI](https://next.chakra-ui.com/)
 
