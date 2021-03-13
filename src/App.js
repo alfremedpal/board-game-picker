@@ -25,6 +25,7 @@ import Modal from './Components/Modal'
 import ChosenGame from './Components/ChosenGame'
 import Game from './Components/Game'
 import Shape from './Components/Shapes'
+import { formatName } from './Utils'
 
 import './App.css';
 import './pattern.css'
@@ -140,14 +141,6 @@ function App() {
 	const chooseRandomeGame = () => {
 		const game = activeCollection[Math.floor(Math.random() * activeCollection.length)]
 		setChosenGame(game)
-	}
-
-	const formatName = name => {
-		if (name.slice(-1) === 's') {
-			return `${name}'`
-		}
-
-		return `${name}'s`
 	}
 
 	return (
