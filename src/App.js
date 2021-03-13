@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import parser from 'fast-xml-parser'
-import { MdInfo } from 'react-icons/md'
 import { FaDice } from 'react-icons/fa'
 import { 
 	Box, 
@@ -15,7 +14,6 @@ import {
 	Accordion, 
 	AccordionPanel,
 	Checkbox,
-	Tooltip,
 	useToast,
 	Icon,
 	Select,
@@ -247,9 +245,6 @@ function App() {
 									>
 										Rated
 									</Checkbox>
-									<Tooltip label="Only games that have been rated" aria-label="Rated filter tooltip">
-										<span><MdInfo/></span>
-									</Tooltip>
 								</div>
 								<div className="checkbox-group">
 									<Checkbox 
@@ -260,9 +255,6 @@ function App() {
 									>
 										Played
 									</Checkbox>
-									<Tooltip label="Only games with at least one play recorded" aria-label="Played filter tooltip">
-										<span><MdInfo/></span>
-									</Tooltip>
 								</div>
 								<div className="checkbox-group">
 									<Checkbox 
@@ -271,11 +263,8 @@ function App() {
 										size="lg"
 										colorScheme="teal"
 									>
-										Comment
+										Commented
 									</Checkbox>
-									<Tooltip label="Only games that have been commented on" aria-label="Comment filter tooltip">
-										<span><MdInfo/></span>
-									</Tooltip>
 								</div>
 							</div>
 						</AccordionPanel>
