@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import parser from 'fast-xml-parser'
 import { FaDice } from 'react-icons/fa'
@@ -63,13 +63,20 @@ function App() {
 	const [collectionVisible, setCollectionVisible] = useState(false)
 	const [modalOpen, setModalOpen] = useState(false)
 
-	useEffect(() => {
-		chooseRandomeGame()
+	const chooseRandomeGame = useCallback(() => {
+		const game = activeCollection[Math.floor(Math.random() * activeCollection.length)]
+		setChosenGame(game)
 	}, [activeCollection])
 
+	useEffect(() => {
+		chooseRandomeGame()
+	}, [activeCollection, chooseRandomeGame])
+
+	// Success handler - Collection downloaded 
 	const successHandler = (res) => {
 		const parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
-		console.log('parsed=>', parsedCollection)
+		// console.log('parsed=>', parsedCollection)
+		// Collection is empty
 		if (parsedCollection.items.item === undefined) {
 			setActivecollection([])
 			toast.closeAll()
@@ -81,6 +88,7 @@ function App() {
 				isClosable: true,
 			})
 			setLoading(false)
+		// Collection has games
 		} else {
 			console.log('type=>', Array.isArray(parsedCollection.items.item))
 			if (Array.isArray(parsedCollection.items.item)) {
@@ -101,6 +109,7 @@ function App() {
 		}
 	}
 
+	// Error handler - collection either took too long to be downloaded or username does no exists
 	const errorHandler = (err) => {
 		console.log(err.response)
 		if (currentRetry < MAX_RETRY) {
@@ -120,6 +129,7 @@ function App() {
 		}
 	}
 
+	// Actual request to download collection
 	const requestCollection = () => {
 		setLoading(true)
 		axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
@@ -136,11 +146,6 @@ function App() {
 				excludesubtype: hideExpansions ? 'boardgameexpansion' : null
 			}
 		}).then(successHandler).catch(errorHandler)
-	}
-
-	const chooseRandomeGame = () => {
-		const game = activeCollection[Math.floor(Math.random() * activeCollection.length)]
-		setChosenGame(game)
 	}
 
 	return (
