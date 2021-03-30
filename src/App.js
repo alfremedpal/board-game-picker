@@ -376,6 +376,9 @@ function App() {
 					<Text color="gray.500" fontSize="sm">
 						All data gathered possible to the official BGG API.
 					</Text>
+					<small style={{fontSize:'0.5em', color:'#CBD5E0'}}>
+						Ver. 0.1.0
+					</small>
 				</footer>
 				<Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}/>
 			</div>
