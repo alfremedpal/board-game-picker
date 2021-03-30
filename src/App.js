@@ -25,7 +25,7 @@ import Modal from './Components/Modal'
 import ChosenGame from './Components/ChosenGame'
 import Game from './Components/Game'
 import Shape from './Components/Shapes'
-import { formatName } from './Utils'
+import { formatName, filterPlayerCount } from './Utils'
 
 import './App.css';
 import './pattern.css'
@@ -48,8 +48,10 @@ function App() {
 	const [activeUsername, setActiveUsername] = useState('')
 
 	const [minRating, setMinRating] = useState(null)
-	const [rating, setRating] = useState(null)
+	const [rating, setRating] = useState(null) // Max. Rating
 	const [minBGGRating, setMinBGGRating] = useState(null)
+	const [minPlayerCount, setMinPlayerCount] = useState(null)
+	const [maxPlayerCount, setMaxPlayerCount] = useState(null)
 	const [rated, setRated] = useState(false)
 	const [played, setPlayed] = useState(false)
 	const [comment, setComment] = useState(false)
@@ -74,7 +76,7 @@ function App() {
 
 	// Success handler - Collection downloaded 
 	const successHandler = (res) => {
-		const parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
+		let parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
 		// console.log('parsed=>', parsedCollection)
 		// Collection is empty
 		if (parsedCollection.items.item === undefined) {
@@ -90,12 +92,13 @@ function App() {
 			setLoading(false)
 		// Collection has games
 		} else {
-			console.log('type=>', Array.isArray(parsedCollection.items.item))
+			// console.log('type=>', Array.isArray(parsedCollection.items.item))
 			if (Array.isArray(parsedCollection.items.item)) {
-				setActivecollection(parsedCollection.items.item)
+				parsedCollection = parsedCollection.items.item
 			} else {
-				setActivecollection([parsedCollection.items.item])
+				parsedCollection = [parsedCollection.items.item]
 			}
+			setActivecollection(filterPlayerCount(parsedCollection, minPlayerCount, maxPlayerCount))
 			setActiveUsername(username)
 			setLoading(false)
 			toast.closeAll()
@@ -175,10 +178,10 @@ function App() {
 				<Accordion allowToggle>
 					<AccordionItem>
 						<AccordionButton>
-						<Box flex="1" textAlign="left" style={{color:'#718096'}}>
-							Advanced
-						</Box>
-						<AccordionIcon />
+							<Box flex="1" textAlign="left" style={{color:'#718096'}}>
+								Advanced
+							</Box>
+							<AccordionIcon />
 						</AccordionButton>
 						<AccordionPanel pb={10}>
 							<div className="stack">
@@ -212,6 +215,34 @@ function App() {
 								</Select>
 								<small>Min. BGG rating</small>
 								<Select onChange={(e) => setMinBGGRating(e.target.value)}>
+									<option value="any">Any</option>
+									<option value={1}>1</option>
+									<option value={2}>2</option>
+									<option value={3}>3</option>
+									<option value={4}>4</option>
+									<option value={5}>5</option>
+									<option value={6}>6</option>
+									<option value={7}>7</option>
+									<option value={8}>8</option>
+									<option value={9}>9</option>
+									<option value={10}>10</option>
+								</Select>
+								<small>Min. player count</small>
+								<Select onChange={(e) => setMinPlayerCount(e.target.value)}>
+									<option value="any">Any</option>
+									<option value={1}>1</option>
+									<option value={2}>2</option>
+									<option value={3}>3</option>
+									<option value={4}>4</option>
+									<option value={5}>5</option>
+									<option value={6}>6</option>
+									<option value={7}>7</option>
+									<option value={8}>8</option>
+									<option value={9}>9</option>
+									<option value={10}>10</option>
+								</Select>
+								<small>Max. player count</small>
+								<Select onChange={(e) => setMaxPlayerCount(e.target.value)}>
 									<option value="any">Any</option>
 									<option value={1}>1</option>
 									<option value={2}>2</option>
@@ -299,7 +330,7 @@ function App() {
 						isLoading={loading}
 						style={{margin: '10px 0 10px 0', width:'100%'}}
 					>
-						Roll <Icon as={FaDice}/>
+						Roll &nbsp; <Icon as={FaDice}/>
 					</Button>
 				: null
 				}

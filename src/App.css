@@ -84,6 +84,7 @@ footer {
   position: relative;
   bottom: -100px;
   left: 0;
+  padding-bottom: 50px;
 }
 
 @media(min-width: 1200px) {
