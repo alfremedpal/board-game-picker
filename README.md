@@ -13,6 +13,10 @@ Built with React JS and [chakra UI](https://next.chakra-ui.com/)
 - Run
     - `yarn start`
 
+# Future
+- Cleanup `App.js`
+- Add a game ranking engine
+
 
 # Contribute
 Feel free to contribute to this project by creating a pull request.
