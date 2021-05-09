@@ -8,6 +8,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding-top: 5%;
 
 }
 
@@ -16,7 +17,6 @@
   padding: 5%;
   z-index: 10;
   background-color: #fff;
-  margin-top: 5%;
 }
 
 .title {
