@@ -1,19 +1,22 @@
 .App {
   text-align: center;
-  min-height: calc(100vh + 1px);
+  min-height: 100vh;
   background-color: #fff;
   width: 100%;
   color: #333;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
 }
 
 .main {
-  /* background-color: red; */
   width: 100%;
   padding: 5%;
   z-index: 10;
   background-color: #fff;
+  margin-top: 5%;
 }
 
 .title {

@@ -4,7 +4,6 @@ import {
     ModalOverlay, 
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
     Text,
@@ -27,9 +26,6 @@ export default function Modal(props) {
                             <Link href="https://www.buymeacoffee.com/amedpal" isExternal color="teal.500"><b>Buy me a coffee</b></Link>
                         </Text>
                     </ModalBody>
-                    <ModalFooter>
-                        yo yo yo
-                    </ModalFooter>
                 </ModalContent>
             </ModalOverlay>
         </CHModal>

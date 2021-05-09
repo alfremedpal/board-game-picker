@@ -14,7 +14,6 @@ Built with React JS and [chakra UI](https://next.chakra-ui.com/)
     - `yarn start`
 
 # Future
-- Cleanup `App.js`
 - Add a game ranking engine
 
 
