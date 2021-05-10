@@ -3,7 +3,6 @@ import {
     Heading,
     LinkBox,
     LinkOverlay,
-    Box,
     Text
  } from '@chakra-ui/react'
 
