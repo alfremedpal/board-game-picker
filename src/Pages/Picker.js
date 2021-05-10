@@ -6,7 +6,6 @@ import {
 	Box, 
 	Input, 
 	Button, 
-	Collapse, 
 	Heading, 
 	AccordionIcon, 
 	AccordionButton, 
@@ -18,7 +17,7 @@ import {
 	Icon,
 	Select,
 	Text,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 import ChosenGame from '../Components/ChosenGame'
 import Game from '../Components/Game'
@@ -56,7 +55,6 @@ export default function Picker() {
 
 	const toast = useToast()
 	const [loading, setLoading] = useState(false)
-	const [collectionVisible, setCollectionVisible] = useState(false)
 
 	const chooseRandomeGame = useCallback(() => {
 		const game = activeCollection[Math.floor(Math.random() * activeCollection.length)]
@@ -147,7 +145,7 @@ export default function Picker() {
     return (
         <div className="main">
             <Heading>
-                Board Game Picker
+                Game Picker
             </Heading>
             <Text color="gray.500" align="left">
                 Enter your BGG username and get a random game from your collection <b>marked as owned</b> to play. 
@@ -333,30 +331,29 @@ export default function Picker() {
                 : null
             }
 
-            <div className="toggle-area"
-                onClick={() => setCollectionVisible(!collectionVisible)}
-            >
-                <h2 
-                    className="subtitle"
-                >
-                    {
-                        activeCollection === undefined || activeCollection.length === 0 ? 
-                        'No collection loaded': 
-                        `${formatName(activeUsername)} collection (${activeCollection.length})`
-                        
-                    }
-                </h2>
-            </div>
-            
-            <Collapse isOpen={collectionVisible}>
-                {
-                    activeCollection === undefined || activeCollection === 0 ? 
-                    <></> :
-                    activeCollection.map(game => (
-                        <Game key={game.name} game={game}/>
-                    ))
-                }
-            </Collapse>
+            <Accordion allowToggle style={{marginTop:'2%'}}>
+                <AccordionItem>
+                    <AccordionButton>
+                        <Box flex="1" textAlign="left" style={{color:'#718096'}}>
+                        {
+                            activeCollection === undefined || activeCollection.length === 0 ? 
+                            'No collection loaded': 
+                            `${formatName(activeUsername)} collection (${activeCollection.length})`
+                        }
+                        </Box>
+                        <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel pb={4}>
+                        {
+                            activeCollection === undefined || activeCollection === 0 ? 
+                            <></> :
+                            activeCollection.map(game => (
+                                <Game key={game.name} game={game}/>
+                            ))
+                        }
+                    </AccordionPanel>
+                </AccordionItem>
+            </Accordion>
         </div>
     )
 }

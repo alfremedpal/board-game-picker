@@ -8,7 +8,7 @@ import {
     Icon,
     Heading,
     Link 
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 export default function ChosenGame(props) {
 

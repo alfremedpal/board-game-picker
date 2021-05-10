@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Icon, Link } from "@chakra-ui/core"
+import { Icon, Link } from "@chakra-ui/react"
 import { GiMeeple } from 'react-icons/gi'
 import { BsClock } from 'react-icons/bs'
 
