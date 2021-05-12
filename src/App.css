@@ -98,7 +98,7 @@ footer {
 }
 
 @media(max-width: 1200px) {
-  .stack .checkbox-group span {
+  /* .stack .checkbox-group span {
     display: none;
-  }
+  } */
 }
