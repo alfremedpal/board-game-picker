@@ -36,7 +36,6 @@ export default function ChosenGame(props) {
                 <Box
                     mt="1"
                     fontWeight="semibold"
-                    as="h4"
                     lineHeight="tight"
                     isTruncated
                 >

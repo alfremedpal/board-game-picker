@@ -348,7 +348,7 @@ export default function Picker() {
                             activeCollection === undefined || activeCollection === 0 ? 
                             <></> :
                             activeCollection.map(game => (
-                                <Game key={game.name} game={game}/>
+                                <Game key={game.name['#text']} game={game}/>
                             ))
                         }
                     </AccordionPanel>
