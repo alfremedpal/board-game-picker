@@ -40,7 +40,6 @@ function App() {
                 </small>
             </footer>
             <Modal isOpen={isOpen} onClose={onClose} />
-            
 		</div>
 	)
 }
