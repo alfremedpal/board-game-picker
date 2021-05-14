@@ -7,13 +7,15 @@ import Step2 from '../Components/RankingSteps/Step2'
 export default function Ranking() {
 
     const [collection, setCollection] = useState([])
+    const collectionValue = {collection, setCollection}
+
     const [currentStep, setCurrentStep] = useState(1)
     const [canMoveOn, setCanMoveOn] = useState(false)
 
-    // const collectionContext = React.createContext({
-    //     collection: [],
-    //     setCollection: () => {}
-    // })
+    const CollectionContext = React.createContext({
+        collection: [],
+        setCollection: () => {}
+    })
 
     return (
         <Box className="main"> 
@@ -22,9 +24,9 @@ export default function Ranking() {
                 Ranking Engine
             </Heading>
             {currentStep === 1 ? 
-                // <collectionContext.Provider value={collection}>
+                <CollectionContext.Provider value={collectionValue}>
                     <Step1 canMoveOn={(e) => setCanMoveOn(e)} passCollection={(col) => setCollection(col)}/> 
-                // </collectionContext.Provider>
+                </CollectionContext.Provider>
                 : null
             }
             {currentStep === 2 ? <Step2 collection={collection}/> : null}

@@ -17,16 +17,15 @@ import {
     useToast
 } from '@chakra-ui/react'
 
-import collectionContext from '../../Pages/Ranking'
+import CollectionContext from '../../Pages/Ranking'
 import Game from '../Game'
 import { formatName } from '../../Utils'
 
 export default function Step1(props) {
 
-    // const {collection, setCollection} = useContext(collectionContext)
+    const {collection, setCollection} = useContext(CollectionContext)
 
     const [username, setUsername] = useState('')
-    const [collection, setCollection] = useState([])
     const [loading, setLoading] = useState(false)
 
     const [hideExpansions, setHideExpansions] = useState(false)
