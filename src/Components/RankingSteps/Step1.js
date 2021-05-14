@@ -17,7 +17,7 @@ import {
     useToast
 } from '@chakra-ui/react'
 
-import CollectionContext from '../../Pages/Ranking'
+import {CollectionContext} from '../CollectionContext'
 import Game from '../Game'
 import { formatName } from '../../Utils'
 
@@ -25,6 +25,7 @@ export default function Step1(props) {
 
     const {collection, setCollection} = useContext(CollectionContext)
 
+    // const [collection, setCollection] = useState([])
     const [username, setUsername] = useState('')
     const [loading, setLoading] = useState(false)
 
@@ -70,7 +71,7 @@ export default function Step1(props) {
 			setCollection(parsedCollection)
 			setLoading(false)
             props.canMoveOn(true)
-            props.passCollection(parsedCollection)
+            // props.passCollection(parsedCollection)
 			toast.closeAll()
 			toast({
 				title: "Collection fetched!",
