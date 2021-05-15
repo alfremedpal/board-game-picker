@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Box, Flex, Image, Select, Text } from '@chakra-ui/react'
+
+import { TieredCollectionContext } from './CollectionContext'
 
 export default function RankableGame(props) {
 
+    const {tieredCollection, setTieredCollection} = useContext(TieredCollectionContext)
     const game = props.game
 
     const [tier, setTier] = useState()
@@ -12,13 +15,22 @@ export default function RankableGame(props) {
         B: 'yellow.200',
         C: 'green.200',
         D: 'teal.200',
-        E: 'blue.200',
-        F: 'cyan.200',
+        E: 'cyan.200',
+        F: 'blue.200',
     }
 
     const changeTier = tier => {
         setTier(tier)
-        // props.addToTieredCollection("HEY")
+        setTieredCollection(
+            [
+                ...tieredCollection,
+                {
+                    name: game.name['#text'],
+                    thumbnail: game.thumbnail,
+                    tier: tier
+                }
+            ]
+        )
     }
 
     return(

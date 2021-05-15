@@ -36,7 +36,7 @@ function App() {
                     All data gathered possible to the official BGG API.
                 </Text>
                 <small style={{fontSize:'0.6em', color:'#CBD5E0'}}>
-                    Ver. 0.2.0
+                    Ver. 0.3.0
                 </small>
             </footer>
             <Modal isOpen={isOpen} onClose={onClose} />

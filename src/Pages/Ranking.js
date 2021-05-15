@@ -1,13 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Heading, Button, ButtonGroup, Alert, AlertIcon, Link } from '@chakra-ui/react'
 
-import { CollectionContext } from '../Components/CollectionContext'
+import { CollectionContext, TieredCollectionContext } from '../Components/CollectionContext'
 import Step1 from '../Components/RankingSteps/Step1'
 import Step2 from '../Components/RankingSteps/Step2'
+import Step3 from '../Components/RankingSteps/Step3'
 
 export default function Ranking() {
 
     const [collection, setCollection] = useState([])
+    const [tieredCollection, setTieredCollection] = useState([])
 
     const [currentStep, setCurrentStep] = useState(1)
     const [canMoveOn, setCanMoveOn] = useState(false)
@@ -20,8 +22,11 @@ export default function Ranking() {
             </Heading>
 
             <CollectionContext.Provider value={{collection, setCollection}}>
-                {currentStep === 1 ? <Step1 canMoveOn={(e) => setCanMoveOn(e)} /> : null}
-                {currentStep === 2 ? <Step2 collection={collection}/> : null}
+                <TieredCollectionContext.Provider value={{tieredCollection, setTieredCollection}}>
+                    {currentStep === 1 ? <Step1 canMoveOn={(e) => setCanMoveOn(e)} /> : null}
+                    {currentStep === 2 ? <Step2 collection={collection}/> : null}
+                    {currentStep === 3 ? <Step3 tieredCollection={tieredCollection}/> : null}
+                </TieredCollectionContext.Provider> 
             </CollectionContext.Provider>
 
             <ButtonGroup variant="solid" spacing="6" style={{margin:'2% 0'}}>

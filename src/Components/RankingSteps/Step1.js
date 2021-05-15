@@ -17,7 +17,7 @@ import {
     useToast
 } from '@chakra-ui/react'
 
-import {CollectionContext} from '../CollectionContext'
+import { CollectionContext } from '../CollectionContext'
 import Game from '../Game'
 import { formatName } from '../../Utils'
 

@@ -10,7 +10,6 @@ import RankableGame from '../RankableGame'
 export default function Step2(props) {
 
     const collection = props.collection
-    const tieredCollection = []
 
     return (
         <Box>
