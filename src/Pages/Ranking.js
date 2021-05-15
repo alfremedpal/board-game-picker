@@ -52,10 +52,10 @@ export default function Ranking() {
 
             <Alert status="info">
                 <AlertIcon />
-                The ranking engine is still adding new features, but you can always&nbsp;
-                <Link href="https://github.com/alfremedpal/board-game-picker" isExternal>
-                    <b>contribute to the project</b>
-                </Link>
+                The ranking engine is still adding new features,&nbsp;
+                <Link href="/whats-coming">
+                    <b>check what is coming</b>
+                </Link>.
             </Alert>
         </Box>
     )

@@ -10,6 +10,8 @@ import Home from './Pages/Home'
 import Picker from './Pages/Picker'
 import Modal from './Components/BGModal'
 import Ranking from './Pages/Ranking'
+import Future from './Pages/Future'
+import Support from './Pages/Support'
 
 import './App.css'
 import './pattern.css'
@@ -20,9 +22,13 @@ function App() {
 
 	return (
 		<div className="App">
+
 			<Route exact path="/" component={Home}/>
 			<Route exact path="/game-picker" component={Picker}/>
             <Route exact path="/ranking-engine" component={Ranking}/>
+            <Route exact path="/whats-coming" component={Future}/>
+            <Route exact path="/support" component={Support}/>
+
 			<footer>
                 <Text color="gray.500" fontSize="sm">
                     <Link href="/" >Home</Link>
@@ -30,7 +36,8 @@ function App() {
                 <Text color="gray.500" fontSize="sm">
                     <Link href="https://www.buymeacoffee.com/amedpal" isExternal>Buy me a coffee</Link> | &nbsp;
                     <Link href="https://github.com/alfremedpal/board-game-picker" isExternal>Source code</Link> | &nbsp;
-                    <Link onClick={onOpen}>About and Contact</Link>
+                    <Link href="/support">Support me</Link> | &nbsp;
+                    <Link onClick={onOpen}>About</Link>
                 </Text>
                 <Text color="gray.500" fontSize="sm">
                     All data gathered possible to the official BGG API.

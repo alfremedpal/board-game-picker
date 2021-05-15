@@ -23,7 +23,6 @@ export default function Step2(props) {
                 <></> :
                 collection.map(game => (
                     <RankableGame
-                        // addToTieredCollection
                         key={game.name['#text']} 
                         game={game}
                     />
