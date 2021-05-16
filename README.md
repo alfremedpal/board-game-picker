@@ -14,8 +14,10 @@ Built with React JS and [chakra UI](https://next.chakra-ui.com/)
     - `yarn start`
 
 # Future
-- Add a game ranking engine
-
+- Add vertical layout option for ranking display
+- Add change width option for the ranking table
+- Add export option to the ranking engine
+- Add import option to the ranking engine
 
 # Contribute
 Feel free to contribute to this project by creating a pull request.
