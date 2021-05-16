@@ -33,7 +33,7 @@ export default function Home() {
                     </LinkOverlay>
                 </Heading>
                 <Text>
-                    Rank your BGG collection in this tier-based engine. Coming soon.
+                    Rank your BGG collection in this tier-based engine.
                 </Text>
             </LinkBox>
         </div>
