@@ -19,18 +19,26 @@ export default function RankableGame(props) {
         F: 'blue.200',
     }
 
-    const changeTier = tier => {
+    const changeTier = (tier) => {
+        const newGame = {
+            name: game.name['#text'],
+            thumbnail: game.thumbnail,
+            tier: tier
+        }
+
         setTier(tier)
-        setTieredCollection(
-            [
-                ...tieredCollection,
-                {
-                    name: game.name['#text'],
-                    thumbnail: game.thumbnail,
-                    tier: tier
-                }
-            ]
-        )
+        if (tier === 'N') {
+            setTieredCollection(
+                tieredCollection.filter(g => g.name !== game.name['#text'])
+            )
+        } else {
+            setTieredCollection(
+                [
+                    ...tieredCollection.filter(g => g.name !== game.name['#text']),
+                    newGame
+                ]
+            )
+        }
     }
 
     return(

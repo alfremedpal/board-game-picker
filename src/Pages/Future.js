@@ -17,6 +17,9 @@ export default function Future() {
                 Remember that you can always&nbsp;
                 <Link color="teal.500" href="https://github.com/alfremedpal/board-game-picker" isExternal>
                     contribute to the project
+                </Link> or&nbsp;
+                <Link color="teal.500" href="/support">
+                    support me with a donation
                 </Link>.
             </Text>
             <List spacing={3} textAlign="left">

@@ -30,32 +30,43 @@ export default function Ranking() {
             </CollectionContext.Provider>
 
             <ButtonGroup variant="solid" spacing="6" style={{margin:'2% 0'}}>
-                <Button
-                    onClick={() => setCurrentStep(currentStep - 1)} 
-                    colorScheme="teal"
-                    size="md" 
-                    width="100px"
-                    disabled={currentStep===1}
-                >
-                    Previous
-                </Button>
-                <Button
-                    onClick={() => setCurrentStep(currentStep + 1)} 
-                    colorScheme="teal"
-                    size="md" 
-                    width="100px"
-                    disabled={!canMoveOn}
-                >
-                    Next
-                </Button>
+                {
+                    currentStep === 3 ?
+                    <Button colorScheme="teal" onClick={() => window.location.reload()}>Rank again</Button> :
+                    <>
+                        <Button
+                            onClick={() => setCurrentStep(currentStep - 1)} 
+                            colorScheme="teal"
+                            size="md" 
+                            width="100px"
+                            disabled={currentStep===1}
+                        >
+                            Previous
+                        </Button>
+                        <Button
+                            onClick={() => setCurrentStep(currentStep + 1)} 
+                            colorScheme="teal"
+                            size="md" 
+                            width="100px"
+                            disabled={!canMoveOn}
+                        >
+                            Next
+                        </Button>
+                    </>
+                }
+                
             </ButtonGroup>
 
-            <Alert status="info">
+            <Alert status="info" fontSize="sm">
                 <AlertIcon />
                 The ranking engine is still adding new features,&nbsp;
                 <Link href="/whats-coming">
                     <b>check what is coming</b>
                 </Link>.
+            </Alert>
+            <Alert status="info" fontSize="sm" marginTop="2%">
+                <AlertIcon />
+                Report any errors or request features:&nbsp;<b>info@amedpal.com</b>
             </Alert>
         </Box>
     )
