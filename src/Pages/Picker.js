@@ -51,6 +51,7 @@ export default function Picker() {
 	const [hideExpansions, setHideExpansions] = useState(false)
 
 	const [activeCollection, setActivecollection] = useState([])
+    const [multiCollection, setMultiCollection] = useState([]);
 	const [chosenGame, setChosenGame] = useState()
 
 	const toast = useToast()
@@ -103,6 +104,23 @@ export default function Picker() {
 		}
 	}
 
+    const multiUserSuccessHandler = (res) => {
+		let parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
+		if (parsedCollection.items.item === undefined) {
+        // No Games
+            console.log('No games found matching criteria...');
+        } else {
+        // Collection has games
+			// console.log('type=>', Array.isArray(parsedCollection.items.item))
+			if (Array.isArray(parsedCollection.items.item)) {
+				parsedCollection = parsedCollection.items.item
+			} else {
+				parsedCollection = [parsedCollection.items.item]
+			}
+            setActivecollection(filterPlayerCount(multiCollection => [...multiCollection, ...parsedCollection], minPlayerCount, maxPlayerCount));
+        }
+    }
+
 	// Error handler - collection either took too long to be downloaded or username does no exists
 	const errorHandler = (err) => {
 		console.log(err.response)
@@ -123,23 +141,74 @@ export default function Picker() {
 		}
 	}
 
+    const multiUserErrorHandler = (err) => {
+        toast({
+            title: "Not found or took too long",
+            description: "Either the username does not exists, or BGG took too long to generate your collection, try again",
+            status: "warning",
+            duration: 9000,
+            isClosable: true,
+        })
+    }
+
 	// Actual request to download collection
 	const requestCollection = () => {
 		setLoading(true)
-		axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
-			params: {
-				username: username,
-				stats: 1,
-				own: 1,
-				minrating: minRating === 'any' ? null : minRating,
-				rating: rating === 'any' ? null : rating,
-				minbggrating: minBGGRating === 'any' ? null : minBGGRating,
-				rated: rated ? 1 : null,
-				played: played ? 1 : null,
-				comment: comment ? 1 : null,
-				excludesubtype: hideExpansions ? 'boardgameexpansion' : null
-			}
-		}).then(successHandler).catch(errorHandler)
+        if (username.includes(',')) {
+            var user_names = username.split(',');
+            console.log(user_names);
+            for (var i = 0; i < user_names.length; i++) {
+                var user_name = user_names[i];
+                axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
+                    params: {
+                        username: user_name,
+                        stats: 1,
+                        own: 1,
+                        minrating: minRating === 'any' ? null : minRating,
+                        rating: rating === 'any' ? null : rating,
+                        minbggrating: minBGGRating === 'any' ? null : minBGGRating,
+                        rated: rated ? 1 : null,
+                        played: played ? 1 : null,
+                        comment: comment ? 1 : null,
+                        excludesubtype: hideExpansions ? 'boardgameexpansion' : null
+                    }
+                }).then(multiUserSuccessHandler).catch(multiUserErrorHandler)
+            }
+            setActiveUsername(username);
+            setLoading(false);
+            if (multiCollection.length >= 0) {
+                toast({
+                    title: "Collection fetched!",
+                    description: `Collection successfully downloaded for ${username}`,
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
+            } else {
+                toast({
+                    title: "No games matched your criteria",
+                    description: "Try adjusting your filters",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+        } else {
+            axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
+                params: {
+                    username: username,
+                    stats: 1,
+                    own: 1,
+                    minrating: minRating === 'any' ? null : minRating,
+                    rating: rating === 'any' ? null : rating,
+                    minbggrating: minBGGRating === 'any' ? null : minBGGRating,
+                    rated: rated ? 1 : null,
+                    played: played ? 1 : null,
+                    comment: comment ? 1 : null,
+                    excludesubtype: hideExpansions ? 'boardgameexpansion' : null
+                }
+            }).then(successHandler).catch(errorHandler)
+        }
 	}
 
     return (
