@@ -13,6 +13,12 @@ Built with React JS and [chakra UI](https://next.chakra-ui.com/)
 - Run
     - `yarn start`
 
+## Run with Docker
+- Build the docker image:
+    - `docker build . -t bgpicker`
+- Start docker container:
+    - `docker run -p 3000:3000 -d bgpicker`
+
 # Future
 - Add vertical layout option for ranking display
 - Add change width option for the ranking table
