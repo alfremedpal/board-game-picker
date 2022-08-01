@@ -5,19 +5,27 @@ export const formatName = name => {
     return `${name}'s`
 }
 
-export const filterPlayerCount = (collection, min, max) => {
-    let filteredCollection = collection
-    if (min !== null && min !== 'any') {
-        filteredCollection = filteredCollection.filter(game => {
-            return Number(game.stats['@_minplayers']) >= Number(min)
-        })
-    }
+export const filterPlayerCount = (collection, numPlayers, minPlayers, maxPlayers) => {
+    return collection.filter(game => {
+        if (minPlayers !== null && minPlayers !== 'any') {
+            if (Number(game.stats['@_minplayers']) < Number(minPlayers)) {
+                return false;
+            }
+        }
 
-    if (max !== null && max !== 'any') {
-        filteredCollection = filteredCollection.filter(game => {
-            return Number(game.stats['@_maxplayers']) <= Number(max)
-        })
-    }
+        if (maxPlayers !== null && maxPlayers !== 'any') {
+            if (Number(game.stats['@_maxplayers']) > Number(maxPlayers)) {
+                return false;
+            }
+        }
 
-    return filteredCollection
+        if (numPlayers !== null && numPlayers !== 'any') {
+            if (Number(game.stats['@_minplayers']) > Number(numPlayers) ||
+                Number(game.stats['@_maxplayers']) < Number(numPlayers)) {
+                return false;
+            }
+        }
+
+        return true;
+    })
 }
