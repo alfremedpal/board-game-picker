@@ -52,7 +52,6 @@ export default function Picker() {
 	const [hideExpansions, setHideExpansions] = useState(false)
 
 	const [activeCollection, setActivecollection] = useState([])
-    const [multiCollection, setMultiCollection] = useState([]);
 	const [chosenGame, setChosenGame] = useState()
 
 	const toast = useToast()
@@ -67,58 +66,47 @@ export default function Picker() {
 		chooseRandomeGame()
 	}, [activeCollection, chooseRandomeGame])
 
-	// Success handler - Collection downloaded 
-	const successHandler = (res) => {
-		let parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
-		// console.log('parsed=>', parsedCollection)
-		// Collection is empty
-		if (parsedCollection.items.item === undefined) {
-			setActivecollection([])
-			toast.closeAll()
-			toast({
-				title: "No games matched your criteria",
-				description: "Try adjusting your filters",
-				status: "error",
-				duration: 5000,
-				isClosable: true,
-			})
-			setLoading(false)
-		// Collection has games
-		} else {
-			// console.log('type=>', Array.isArray(parsedCollection.items.item))
-			if (Array.isArray(parsedCollection.items.item)) {
-				parsedCollection = parsedCollection.items.item
-			} else {
-				parsedCollection = [parsedCollection.items.item]
-			}
-			setActivecollection(filterPlayerCount(parsedCollection, numPlayers, minPlayerCount, maxPlayerCount))
-			setActiveUsername(username)
-			setLoading(false)
-			toast.closeAll()
-			toast({
-				title: "Collection fetched!",
-				description: "Collection successfully downloaded",
-				status: "success",
-				duration: 3000,
-				isClosable: true,
-			})
-		}
-	}
-
-    const multiUserSuccessHandler = (res) => {
-		let parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
-		if (parsedCollection.items.item === undefined) {
-        // No Games
-            console.log('No games found matching criteria...');
+    // Success handler - Collection downloaded
+    const successHandler = (responses) => {
+        let multiCollection = [];
+        for (var i = 0; i < responses.length; i++) {
+            let res = responses[i];
+            let parsedCollection = parser.parse(res.data, {ignoreAttributes : false})
+            // console.log('parsed=>', parsedCollection)
+            if (parsedCollection.items.item === undefined) {
+                // Collection is empty
+                console.log('No games found matching criteria...');
+            } else {
+                // Collection has games
+                // console.log('type=>', Array.isArray(parsedCollection.items.item))
+                if (Array.isArray(parsedCollection.items.item)) {
+                    parsedCollection = parsedCollection.items.item
+                } else {
+                    parsedCollection = [parsedCollection.items.item]
+                }
+                multiCollection.push(...parsedCollection)
+            }
+        }
+        setActivecollection(filterPlayerCount(multiCollection, numPlayers, minPlayerCount, maxPlayerCount));
+        setActiveUsername(username);
+        setLoading(false);
+        if (multiCollection.length >= 0) {
+            toast.closeAll()
+            toast({
+                title: "Collection fetched!",
+                description: "Collection successfully downloaded",
+                status: "success",
+                duration: 3000,
+                isClosable: true,
+            })
         } else {
-        // Collection has games
-			// console.log('type=>', Array.isArray(parsedCollection.items.item))
-			if (Array.isArray(parsedCollection.items.item)) {
-				parsedCollection = parsedCollection.items.item
-			} else {
-				parsedCollection = [parsedCollection.items.item]
-			}
-            setActivecollection(filterPlayerCount(multiCollection => [...multiCollection, ...parsedCollection], numPlayers, minPlayerCount, maxPlayerCount));
+            toast({
+                title: "No games matched your criteria",
+                description: "Try adjusting your filters",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            })
         }
     }
 
@@ -142,62 +130,23 @@ export default function Picker() {
 		}
 	}
 
-    const multiUserErrorHandler = (err) => {
-        toast({
-            title: "Not found or took too long",
-            description: "Either the username does not exists, or BGG took too long to generate your collection, try again",
-            status: "warning",
-            duration: 9000,
-            isClosable: true,
-        })
-    }
-
-	// Actual request to download collection
-	const requestCollection = () => {
-		setLoading(true)
+    // Actual request to download collection
+    const requestCollection = () => {
+        setActivecollection([])
+        setLoading(true)
+        let user_names = [];
         if (username.includes(',')) {
-            var user_names = username.split(',');
-            console.log(user_names);
-            for (var i = 0; i < user_names.length; i++) {
-                var user_name = user_names[i];
-                axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
-                    params: {
-                        username: user_name,
-                        stats: 1,
-                        own: 1,
-                        minrating: minRating === 'any' ? null : minRating,
-                        rating: rating === 'any' ? null : rating,
-                        minbggrating: minBGGRating === 'any' ? null : minBGGRating,
-                        rated: rated ? 1 : null,
-                        played: played ? 1 : null,
-                        comment: comment ? 1 : null,
-                        excludesubtype: hideExpansions ? 'boardgameexpansion' : null
-                    }
-                }).then(multiUserSuccessHandler).catch(multiUserErrorHandler)
-            }
-            setActiveUsername(username);
-            setLoading(false);
-            if (multiCollection.length >= 0) {
-                toast({
-                    title: "Collection fetched!",
-                    description: `Collection successfully downloaded for ${username}`,
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                });
-            } else {
-                toast({
-                    title: "No games matched your criteria",
-                    description: "Try adjusting your filters",
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true,
-                });
-            }
+            user_names = username.split(',');
         } else {
-            axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
+            user_names.push(username)
+        }
+        console.log(user_names);
+        let promises = [];
+        for (var i = 0; i < user_names.length; i++) {
+            var user_name = user_names[i];
+            promises.push(axios.get('https://www.boardgamegeek.com/xmlapi2/collection', {
                 params: {
-                    username: username,
+                    username: user_name,
                     stats: 1,
                     own: 1,
                     minrating: minRating === 'any' ? null : minRating,
@@ -208,9 +157,11 @@ export default function Picker() {
                     comment: comment ? 1 : null,
                     excludesubtype: hideExpansions ? 'boardgameexpansion' : null
                 }
-            }).then(successHandler).catch(errorHandler)
+            }))
         }
-	}
+
+        Promise.all(promises).then(successHandler).catch(errorHandler)
+    }
 
     return (
         <div className="main">
@@ -218,7 +169,7 @@ export default function Picker() {
                 Game Picker
             </Heading>
             <Text color="gray.500" align="left">
-                Enter your BGG username and get a random game from your collection <b>marked as owned</b> to play. 
+                Enter your BGG username (or comma-separated list of usernames) and get a random game from your collection <b>marked as owned</b> to play. 
                 Use the filters under the 'Advanced' menu to refine your collection to your liking. 
             </Text>
             <Input
