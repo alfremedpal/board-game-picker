@@ -43,6 +43,7 @@ export default function Picker() {
 	const [minRating, setMinRating] = useState(null)
 	const [rating, setRating] = useState(null) // Max. Rating
 	const [minBGGRating, setMinBGGRating] = useState(null)
+	const [numPlayers, setNumPlayers] = useState(null)
 	const [minPlayerCount, setMinPlayerCount] = useState(null)
 	const [maxPlayerCount, setMaxPlayerCount] = useState(null)
 	const [rated, setRated] = useState(false)
@@ -90,7 +91,7 @@ export default function Picker() {
 			} else {
 				parsedCollection = [parsedCollection.items.item]
 			}
-			setActivecollection(filterPlayerCount(parsedCollection, minPlayerCount, maxPlayerCount))
+			setActivecollection(filterPlayerCount(parsedCollection, numPlayers, minPlayerCount, maxPlayerCount))
 			setActiveUsername(username)
 			setLoading(false)
 			toast.closeAll()
@@ -117,7 +118,7 @@ export default function Picker() {
 			} else {
 				parsedCollection = [parsedCollection.items.item]
 			}
-            setActivecollection(filterPlayerCount(multiCollection => [...multiCollection, ...parsedCollection], minPlayerCount, maxPlayerCount));
+            setActivecollection(filterPlayerCount(multiCollection => [...multiCollection, ...parsedCollection], numPlayers, minPlayerCount, maxPlayerCount));
         }
     }
 
@@ -272,6 +273,20 @@ export default function Picker() {
                             </Select>
                             <small>Min. BGG rating</small>
                             <Select onChange={(e) => setMinBGGRating(e.target.value)}>
+                                <option value="any">Any</option>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                                <option value={9}>9</option>
+                                <option value={10}>10</option>
+                            </Select>
+                            <small>Num. players</small>
+                            <Select onChange={(e) => setNumPlayers(e.target.value)}>
                                 <option value="any">Any</option>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
