@@ -12,6 +12,18 @@
 
 }
 
+.notice {
+  background-color: rgba(255, 0, 0, 0.2);
+  border-radius: 5px;
+  border-left: 5px solid red;
+  height: 50px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
 .main {
   width: 100%;
   padding: 5%;

@@ -23,6 +23,12 @@ function App() {
 	return (
 		<div className="App">
 
+            <div className='notice'>
+                2026-05-23: Website is currently broken due to a change in BGG's API. I am working on fixing it,
+                sorry for any inconvenience, this is a very old project. Thanks to the people who emailed me 
+                about it :)
+            </div>
+
 			<Route exact path="/" component={Home}/>
 			<Route exact path="/game-picker" component={Picker}/>
             <Route exact path="/ranking-engine" component={Ranking}/>
